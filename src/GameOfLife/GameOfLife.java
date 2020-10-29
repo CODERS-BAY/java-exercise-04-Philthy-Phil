@@ -12,8 +12,9 @@ public class GameOfLife {
 	
 	// declaration
 	public static final Scanner scanBot = new Scanner(System.in);
-	public static final int row = 5;
-	public static final int col = 5;
+	public static final int count = 3;
+	public static final int row = count;
+	public static final int col = count;
 	public static final String[][] grid = new String[row + 2][col + 2];
 
 	// random value for birth and death
@@ -68,7 +69,9 @@ public class GameOfLife {
 		System.out.println("==============");
 	}
 
-	// main method
+/////////////////////////////
+//////// main method ////////
+/////////////////////////////
 	public static void main(String[] args) {
 
 		// set Generation Count
@@ -78,23 +81,69 @@ public class GameOfLife {
 		String[][] grid = GridFillin();
 
 		// display grid & infos
-		sout();
-		System.out.println("Gen.: " + Gen);
-		sout();
-
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
-
-				if (j < grid[i].length - 1) {
-					System.out.print(grid[i][j] + " ");
-				} else {
-					System.out.print(grid[i][j] + "\n");
+		while(Gen <= 1) {
+			
+			int alive = 0;
+			int died = 0;
+			
+			System.out.println("Gen.: " + Gen);
+			sout();
+			for (int i = 0; i < grid.length; i++) {
+				for (int j = 0; j < grid[i].length; j++) {
+	
+					if (j < grid[i].length - 1) {
+						System.out.print(grid[i][j] + " ");
+					} else {
+						System.out.print(grid[i][j] + "\n");
+					}
+					
+					// new Array with [i][j] as origin checkin neighbors
+					String[][] temp 			= new String[row + 2][col + 2];
+////					String neighborTop			= temp[i - 1][j];
+//					if((grid[i - 1][j]).equals(birth)) {
+//					
+//						
+//						alive++;
+//					}			
+////					String neighborTopRight		= temp[i - 1][j + 1];
+//					if((temp[i - 1][j + 1]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborRight		= temp[i][j + 1];
+//					if((temp[i][j + 1]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborBottomRight	= temp[i + 1][j + 1];
+//					if((temp[i + 1][j + 1]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborBottom		= temp[i + 1][j];
+//					if((temp[i + 1][j]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborBottomLeft	= temp[i - 1][j + 1];
+//					if((temp[i - 1][j + 1]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborLeft 		= temp[i][j - 1];
+//					if((temp[i][j - 1]).equals(birth)) {
+//						alive++;
+//					}
+////					String neighborTopLeft		= temp[i - 1][j - 1];
+//					if((temp[i - 1][j - 1]).equals(birth)) {
+//						alive++;
+//					}
+					
 				}
-
 			}
-		}
-
 		sout();
+		System.out.println();
+		System.out.println(died + " died");
+		System.out.println(alive + " alive");
+		sout();
+		Gen++;
+		
+		}
 
 	}
 

@@ -7,7 +7,7 @@ public class GameOfLifeTestingAround {
 // sign declaration
 	public static final String birth = "•";
 	public static final String death = "X";
-	
+		
 // random value for birth and death
 	public static String coin() {
 		int random = new Random().nextInt(2);
@@ -30,7 +30,9 @@ public class GameOfLifeTestingAround {
 
 //set Generation Count
 		int GenCount = 1;
+		
 
+		
 // set grid 5 x 5
 		String[][] grid = { 
 				{ "#", "#", "#", "#", "#", "#", "#" }, 
@@ -42,7 +44,7 @@ public class GameOfLifeTestingAround {
 				{ "#", "#", "#", "#", "#", "#", "#" } };
 		
 		sout();
-		System.out.println("Generation " + GenCount);
+		System.out.println("Generation " + GenCount);		
 		sout();
 		
 // display grid
