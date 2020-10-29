@@ -90,51 +90,28 @@ public class GameOfLife {
 			sout();
 			for (int i = 0; i < grid.length; i++) {
 				for (int j = 0; j < grid[i].length; j++) {
-	
-					if (j < grid[i].length - 1) {
-						System.out.print(grid[i][j] + " ");
-					} else {
-						System.out.print(grid[i][j] + "\n");
-					}
-					
+					System.out.print(grid[i][j] + " ");
+							
 					// new Array with [i][j] as origin checkin neighbors
 					String[][] temp 			= new String[row + 2][col + 2];
-////					String neighborTop			= temp[i - 1][j];
+
+//					String neighborTop			= temp[i - 1][j];
 //					if((grid[i - 1][j]).equals(birth)) {
-//					
-//						
+//											
 //						alive++;
 //					}			
-////					String neighborTopRight		= temp[i - 1][j + 1];
-//					if((temp[i - 1][j + 1]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborRight		= temp[i][j + 1];
-//					if((temp[i][j + 1]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborBottomRight	= temp[i + 1][j + 1];
-//					if((temp[i + 1][j + 1]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborBottom		= temp[i + 1][j];
-//					if((temp[i + 1][j]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborBottomLeft	= temp[i - 1][j + 1];
-//					if((temp[i - 1][j + 1]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborLeft 		= temp[i][j - 1];
-//					if((temp[i][j - 1]).equals(birth)) {
-//						alive++;
-//					}
-////					String neighborTopLeft		= temp[i - 1][j - 1];
-//					if((temp[i - 1][j - 1]).equals(birth)) {
-//						alive++;
-//					}
+//					String neighborTopRight		= temp[i - 1][j + 1];
+//					String neighborRight		= temp[i][j + 1];
+//					String neighborBottomRight	= temp[i + 1][j + 1];
+//					String neighborBottom		= temp[i + 1][j];
+//					String neighborBottomLeft	= temp[i - 1][j + 1];
+//					String neighborLeft 		= temp[i][j - 1];
+//					String neighborTopLeft		= temp[i - 1][j - 1];
+					
+					
 					
 				}
+				System.out.println();
 			}
 		sout();
 		System.out.println();
