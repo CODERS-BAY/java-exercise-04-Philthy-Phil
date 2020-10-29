@@ -12,7 +12,7 @@ public class GameOfLife {
 	
 	// declaration
 	public static final Scanner scanBot = new Scanner(System.in);
-	public static final int count = 3;
+	public static final int count = 5;
 	public static final int row = count;
 	public static final int col = count;
 	public static final String[][] grid = new String[row + 2][col + 2];
@@ -63,10 +63,17 @@ public class GameOfLife {
 	// UI
 	public static void sout() {
 		
-		// noch dynamisch machen
-		// noch dynamisch machen
-		// noch dynamisch machen
-		System.out.println("==============");
+		String[] ui = new String[count + 2]; //5
+		
+		for(int i = 0; i < ui.length; i++) {
+			ui[i] = "=";
+			if(i < ui.length-1) {
+				System.out.print(ui[i] + "-");
+			} else {
+				System.out.print(ui[i]);
+			}
+		}
+		System.out.println();
 	}
 
 /////////////////////////////
