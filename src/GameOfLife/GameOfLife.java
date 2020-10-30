@@ -12,7 +12,7 @@ public class GameOfLife {
 
 	// declaration
 	public static final Scanner scanBot = new Scanner(System.in);
-	public static final int count = 2;
+	public static final int count = 3;
 	public static final int row = count;
 	public static final int col = count;
 	public static final String[][] grid = new String[row + 2][col + 2];
@@ -40,9 +40,7 @@ public class GameOfLife {
 	}
 
 	// adding border
-	public static String[][] addBorder() {
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[i].length; j++) {
+	public static String[][] addBorder(String[][]grid) {
 
 				// margin left = borderSign
 				for (int marginLeft = 0; marginLeft < row + 2; marginLeft++) {
@@ -62,13 +60,11 @@ public class GameOfLife {
 				for (int marginBottom = 0; marginBottom < col + 2; marginBottom++) {
 					grid[row + 1][marginBottom] = borderSign;
 				}
-			}
-		}
 		return grid;
 	}
 	
 	// check for neighbours
-	public static int checkNeighbours() {
+	public static int checkNeighbours(String[][]grid) {
 
 		int trueNeighbours = 0;
 		
@@ -90,25 +86,23 @@ public class GameOfLife {
 				String bottomRight = temp[i + 1][j + 1];
 				
 				// check top row
-				if(topLeft == birth) trueNeighbours++;
-				if(topMiddle == birth) trueNeighbours++;
-				if(topRight == birth) trueNeighbours++;
+				if(topLeft.equals(birth)) trueNeighbours++;
+				if(topMiddle.equals(birth)) trueNeighbours++;
+				if(topRight.equals(birth)) trueNeighbours++;
 				
 				// check middle row
-				if(middleLeft == birth) trueNeighbours++;
-				if(middleRight == birth) trueNeighbours++;
+				if(middleLeft.equals(birth)) trueNeighbours++;
+				if(middleRight.equals(birth)) trueNeighbours++;
 				
 				// check bottom row
-				if(bottomLeft == birth) trueNeighbours++;
-				if(bottomMiddle == birth) trueNeighbours++;
-				if(bottomRight == birth) trueNeighbours++;
+				if(bottomLeft.equals(birth)) trueNeighbours++;
+				if(bottomMiddle.equals(birth)) trueNeighbours++;
+				if(bottomRight.equals(birth)) trueNeighbours++;
 				
 			}
 //			System.out.println();
-
 		}
 //		System.out.println();
-
 		return trueNeighbours;
 	}
 
@@ -135,25 +129,38 @@ public class GameOfLife {
 
 		// set Generation Count
 		int Gen = 1;
-		int GenCount = 1;
+		int GenCount = 2;
 
+		// set nextGen
+		String[][] nextGenGrid = new String[row + 2][col + 2];
+		
+		
 		// implement grid
 		String[][] grid = GridFillin();
-		grid = addBorder();
+		grid = addBorder(grid);
 		// display grid & check & loop
 		while (Gen <= GenCount) {
 
 			System.out.println("Gen.: " + Gen);
 			sout();
+			
 			for (int i = 0; i < grid.length; i++) {
 				for (int j = 0; j < grid[i].length; j++) {
-					System.out.print(grid[i][j] + " ");		
+					System.out.print(grid[i][j] + " ");	
+					
+
+					// define rules
+					nextGenGrid[i][j] = grid[i][j] + "N";
+					nextGenGrid = addBorder(nextGenGrid);
+					
+					
 				}
 				System.out.println();
 			}
 			sout();
 			System.out.println();
-			Gen++;
+			grid = nextGenGrid; 
+			Gen++;				
 		}
 	}
 }
