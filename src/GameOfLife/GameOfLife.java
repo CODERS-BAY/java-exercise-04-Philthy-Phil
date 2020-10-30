@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class GameOfLife {
 
 	// sign UI
-	public static final String birth = "•";
+	public static final String birth = "L";
 	public static final String death = "X";
 	public static final String borderSign = "#";
-	
+
 	// declaration
 	public static final Scanner scanBot = new Scanner(System.in);
-	public static final int count = 5;
+	public static final int count = 2;
 	public static final int row = count;
 	public static final int col = count;
 	public static final String[][] grid = new String[row + 2][col + 2];
@@ -33,41 +33,93 @@ public class GameOfLife {
 	public static String[][] GridFillin() {
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
-
 				grid[i][j] = coin();
-
-				// margin left = borderSign
-				for (int marginLeft = 0; marginLeft < row+2; marginLeft++) {
-					grid[marginLeft][0] = borderSign;
-				}
-				
-				// margin right = borderSign
-				for (int marginRight = 0; marginRight < row+2; marginRight++) {
-					grid[marginRight][col+1] = borderSign;
-				}	
-				
-				// margin top = borderSign
-				for (int marginTop = 0; marginTop < col+2; marginTop++) {
-					grid[0][marginTop] = borderSign;
-				}
-				// margin bottom = borderSign
-				for (int marginBottom = 0; marginBottom < col+2; marginBottom++) {
-					grid[row+1][marginBottom] = borderSign;
-				}
-
 			}
 		}
 		return grid;
 	}
 
+	// adding border
+	public static String[][] addBorder() {
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[i].length; j++) {
+
+				// margin left = borderSign
+				for (int marginLeft = 0; marginLeft < row + 2; marginLeft++) {
+					grid[marginLeft][0] = borderSign;
+				}
+
+				// margin right = borderSign
+				for (int marginRight = 0; marginRight < row + 2; marginRight++) {
+					grid[marginRight][col + 1] = borderSign;
+				}
+
+				// margin top = borderSign
+				for (int marginTop = 0; marginTop < col + 2; marginTop++) {
+					grid[0][marginTop] = borderSign;
+				}
+				// margin bottom = borderSign
+				for (int marginBottom = 0; marginBottom < col + 2; marginBottom++) {
+					grid[row + 1][marginBottom] = borderSign;
+				}
+			}
+		}
+		return grid;
+	}
+	
+	// check for neighbours
+	public static int checkNeighbours() {
+
+		int trueNeighbours = 0;
+		
+		String[][] temp = grid;
+
+		for (int i = 1; i < temp.length - 1; i++) {
+			for (int j = 1; j < temp[i].length - 1; j++) {
+//				System.out.print(temp[i][j] + " ");
+
+				// define all 8 neighbours
+				String topLeft = temp[i - 1][j - 1];
+				String topMiddle = temp[i - 1][j];
+				String topRight = temp[i - 1][j + 1];
+				String middleLeft = temp[i][j - 1];
+				String middle = temp[i][j];
+				String middleRight = temp[i][j + 1];
+				String bottomLeft = temp[i + 1][j - 1];
+				String bottomMiddle = temp[i + 1][j];
+				String bottomRight = temp[i + 1][j + 1];
+				
+				// check top row
+				if(topLeft == birth) trueNeighbours++;
+				if(topMiddle == birth) trueNeighbours++;
+				if(topRight == birth) trueNeighbours++;
+				
+				// check middle row
+				if(middleLeft == birth) trueNeighbours++;
+				if(middleRight == birth) trueNeighbours++;
+				
+				// check bottom row
+				if(bottomLeft == birth) trueNeighbours++;
+				if(bottomMiddle == birth) trueNeighbours++;
+				if(bottomRight == birth) trueNeighbours++;
+				
+			}
+//			System.out.println();
+
+		}
+//		System.out.println();
+
+		return trueNeighbours;
+	}
+
 	// UI
 	public static void sout() {
-		
-		String[] ui = new String[count + 2]; //5
-		
-		for(int i = 0; i < ui.length; i++) {
+
+		String[] ui = new String[count + 2]; // 5
+
+		for (int i = 0; i < ui.length; i++) {
 			ui[i] = "=";
-			if(i < ui.length-1) {
+			if (i < ui.length - 1) {
 				System.out.print(ui[i] + "-");
 			} else {
 				System.out.print(ui[i]);
@@ -83,52 +135,25 @@ public class GameOfLife {
 
 		// set Generation Count
 		int Gen = 1;
+		int GenCount = 1;
 
 		// implement grid
 		String[][] grid = GridFillin();
+		grid = addBorder();
+		// display grid & check & loop
+		while (Gen <= GenCount) {
 
-		// display grid & infos
-		while(Gen <= 1) {
-			
-			int alive = 0;
-			int died = 0;
-			
 			System.out.println("Gen.: " + Gen);
 			sout();
 			for (int i = 0; i < grid.length; i++) {
 				for (int j = 0; j < grid[i].length; j++) {
-					System.out.print(grid[i][j] + " ");
-							
-					// new Array with [i][j] as origin checkin neighbors
-					String[][] temp 			= new String[row + 2][col + 2];
-
-//					String neighborTop			= temp[i - 1][j];
-//					if((grid[i - 1][j]).equals(birth)) {
-//											
-//						alive++;
-//					}			
-//					String neighborTopRight		= temp[i - 1][j + 1];
-//					String neighborRight		= temp[i][j + 1];
-//					String neighborBottomRight	= temp[i + 1][j + 1];
-//					String neighborBottom		= temp[i + 1][j];
-//					String neighborBottomLeft	= temp[i - 1][j + 1];
-//					String neighborLeft 		= temp[i][j - 1];
-//					String neighborTopLeft		= temp[i - 1][j - 1];
-					
-					
-					
+					System.out.print(grid[i][j] + " ");		
 				}
 				System.out.println();
 			}
-		sout();
-		System.out.println();
-		System.out.println(died + " died");
-		System.out.println(alive + " alive");
-		sout();
-		Gen++;
-		
+			sout();
+			System.out.println();
+			Gen++;
 		}
-
 	}
-
 }
