@@ -72,7 +72,7 @@ public class GameOfLife {
 
 		for (int i = 1; i < temp.length - 1; i++) {
 			for (int j = 1; j < temp[i].length - 1; j++) {
-//				System.out.print(temp[i][j] + " ");
+//				System.out.print(temp[i][j] + " ");			// check each sign
 
 				// define all 8 neighbours
 				String topLeft = temp[i - 1][j - 1];
@@ -100,9 +100,7 @@ public class GameOfLife {
 				if(bottomRight.equals(birth)) trueNeighbours++;
 				
 			}
-//			System.out.println();
 		}
-//		System.out.println();
 		return trueNeighbours;
 	}
 
@@ -148,12 +146,15 @@ public class GameOfLife {
 				for (int j = 0; j < grid[i].length; j++) {
 					System.out.print(grid[i][j] + " ");	
 					
+					int trueNeighbours = checkNeighbours(grid);
 
 					// define rules
-					nextGenGrid[i][j] = grid[i][j] + "N";
+					
+					nextGenGrid[i][j] = grid[i][j] + trueNeighbours;
+								
+					
 					nextGenGrid = addBorder(nextGenGrid);
-					
-					
+										
 				}
 				System.out.println();
 			}
