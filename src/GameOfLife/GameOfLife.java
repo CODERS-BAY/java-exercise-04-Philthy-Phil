@@ -80,7 +80,7 @@ public class GameOfLife {
 					trueNeighbours++;
 				}	
 			}
-		}
+		}		
 		return trueNeighbours;
 	}
 
@@ -128,23 +128,27 @@ public class GameOfLife {
 						
 					// check all 8 neighbours
 					int trueNeighbours = checkNeighbours(GRID, i, j);
-					
-					System.out.print(GRID[i][j] + "" + trueNeighbours + " ");
-					
+					if(!GRID[i][j].equals(BORDERSIGN)) {
+						System.out.print(GRID[i][j] + "" + trueNeighbours + " ");
+						
 //						// rule #1 any live cell with two or three live neighbors survives
-//						if(trueNeighbours == 2 || trueNeighbours == 3) {
-//							nextGenGrid[i][j] = BIRTH;							
-//						}
-				
+						if(trueNeighbours == 2 || trueNeighbours == 3) {
+							nextGenGrid[i][j] = BIRTH;							
+						}
+					
 //						// rule #2 any dead cell with three live neighbours becomes a live cell
 //						else if(GRID[i][j].equals(DEATH) && trueNeighbours == 3) {
 //							nextGenGrid[i][j] = BIRTH;
 //						}
-				
+					
 //						// rule #3 all other live cells die in the next generation - similarly, all other dead cells stay dead
 //						else {
 //							nextGenGrid[i][j] = DEATH;
 //						}	
+						
+					} else {
+						System.out.print(GRID[i][j] + " ");
+					}
 				}
 				System.out.println();
 			}
