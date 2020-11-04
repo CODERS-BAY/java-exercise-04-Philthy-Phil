@@ -13,8 +13,8 @@ public class GameOfLife {
 	// declaration
 	public static final Scanner SCANBOT = new Scanner(System.in);
 
-	public static int ROW = 3; // how many rows do you like
-	public static int COL = 3; // how many columns do you like
+	public static int ROW;
+	public static int COL;
 
 	// random value for BIRTH and DEATH
 	public static String coin() {
@@ -104,57 +104,83 @@ public class GameOfLife {
 //////// main method ////////
 /////////////////////////////
 	public static void main(String[] args) {
-		
-		// set GRID
-		String[][] GRID = new String[ROW + 2][COL + 2];
 
-		// fill GRID
-		GRID = gridFill(GRID);
-		
-		// set Generation and Generation-Count
-		int Gen = 1;
-		int GenCount = 2;
+		boolean running = true;
+		while(running) {
 
-		// set GRID for next Generation
-		while (Gen <= GenCount) {
-
-			String[][] nextGenGrid = GRID;
-			System.out.println("Gen.: " + Gen);
+			System.out.print("rows should be displayed: ");
+			ROW = SCANBOT.nextInt();
+			System.out.print("columns should be displayed: ");
+			COL = SCANBOT.nextInt();
+			
+			// set GRID
+			String[][] GRID = new String[ROW + 2][COL + 2];
+	
+			// fill GRID
+			GRID = gridFill(GRID);
+			
+			System.out.print("generation should be displayed: ");
+					
+			// set Generation and Generation-Count
+			int Gen = 1;
+			int GenCount = SCANBOT.nextInt();
+	
 			sout();
-
-			// implement grid
-			for (int i = 0; i < GRID.length; i++) {
-				for (int j = 0; j < GRID[i].length; j++) {
+			
+			// set GRID for next Generation
+			while (Gen <= GenCount) {
+	
+				String[][] nextGenGrid = GRID;
+				System.out.println("Gen.: " + Gen);
+				sout();
+	
+				// implement grid
+				for (int i = 0; i < GRID.length; i++) {
+					for (int j = 0; j < GRID[i].length; j++) {
+							
+						// check all 8 neighbours
+						int trueNeighbours = checkNeighbours(GRID, i, j);
+						if(!GRID[i][j].equals(BORDERSIGN)) {
+							System.out.print(GRID[i][j]  + /*"" + trueNeighbours  +*/ " ");
+							
+//							// rule #1 any live cell with two or three live neighbors survives
+							if(GRID[i][j].equals(BIRTH) && trueNeighbours == 2 || GRID[i][j].equals(BIRTH) && trueNeighbours == 3) {
+								nextGenGrid[i][j] = BIRTH;
+							}
 						
-					// check all 8 neighbours
-					int trueNeighbours = checkNeighbours(GRID, i, j);
-					if(!GRID[i][j].equals(BORDERSIGN)) {
-						System.out.print(GRID[i][j] + "" + trueNeighbours + " ");
+//							// rule #2 any dead cell with three live neighbours becomes a live cell
+							else if(GRID[i][j].equals(DEATH) && trueNeighbours == 3) {
+								nextGenGrid[i][j] = BIRTH;
+							}
 						
-//						// rule #1 any live cell with two or three live neighbors survives
-						if(trueNeighbours == 2 || trueNeighbours == 3) {
-							nextGenGrid[i][j] = BIRTH;							
+//							// rule #3 all other live cells die in the next generation - similarly, all other dead cells stay dead
+							else if(GRID[i][j].equals(BIRTH) && trueNeighbours < 2 || GRID[i][j].equals(DEATH) && trueNeighbours < 2) {
+								nextGenGrid[i][j] = DEATH;							
+							}
+						
+//							// rule #4 any live cell with more than 3 live neighbours die
+//							else if(GRID[i][j].equals(BIRTH) && trueNeighbours > 3) {
+//								nextGenGrid[i][j] = DEATH;
+//							}
+							
+						} else {
+							System.out.print(GRID[i][j] + " ");
 						}
-					
-//						// rule #2 any dead cell with three live neighbours becomes a live cell
-//						else if(GRID[i][j].equals(DEATH) && trueNeighbours == 3) {
-//							nextGenGrid[i][j] = BIRTH;
-//						}
-					
-//						// rule #3 all other live cells die in the next generation - similarly, all other dead cells stay dead
-//						else {
-//							nextGenGrid[i][j] = DEATH;
-//						}	
-						
-					} else {
-						System.out.print(GRID[i][j] + " ");
 					}
+					System.out.println();
 				}
-				System.out.println();
+				Gen++;
+				GRID = nextGenGrid;
+				sout();
 			}
-			Gen++;
-			GRID = nextGenGrid;
-
+			System.out.print("want to start over? (y or n) ");
+			
+			String oneMore = SCANBOT.next();
+	
+			if(oneMore.equals("n")) {
+				running = false;
+				System.out.println("thx for using this programm!");
+			}
 			sout();
 		}
 	}
